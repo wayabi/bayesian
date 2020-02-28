@@ -10,7 +10,8 @@ using namespace std;
 int main(int argc, char** argv){
 	random_device rnd;
 	mt19937 mt(rnd());
-	uniform_real_distribution<> r(-1, 1);
+	//uniform_real_distribution<> r(-1, 1);
+	normal_distribution<> r(0.0, 1.0);
 
 	vec mu{1, 2, 3};
 	vec sig{
@@ -40,9 +41,11 @@ int main(int argc, char** argv){
 	g.calc_variance_matrix(3, data);
 	cout <<  "g:" << g << endl;
 	for(int i=0;i<100;++i){
-		vec pp{1+r(mt)*2, 2+r(mt)*3*2, 3+r(mt)*2};
+		vec pp{1+r(mt), 2+r(mt)*3, 3+r(mt)};
 		cout << "percentile:" << g.calc_percentile(pp) << " (" << pp[0] << ", " << pp[1] << ", " << pp[2] << ")" << endl;
 	}
+
+	cout << "cholesky:" << g.sigma_.cholesky() << endl;
 
 	return 0;
 }

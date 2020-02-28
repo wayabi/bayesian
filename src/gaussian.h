@@ -17,6 +17,8 @@ public:
 	matrix submatrix(int x, int y) const;
 	matrix inv() const;
 	vec head_mul(const vec& a);
+	matrix cholesky() const;
+
 	friend std::ostream& operator<<(std::ostream& o, const matrix& m);
 
 	static vec subtract(const vec& a, const vec& b);

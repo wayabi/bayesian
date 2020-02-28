@@ -61,9 +61,10 @@ matrix matrix::inv() const
 {
 	vec v;
 	double det = determinant();
+	assert(det > 0);
 	for(int y=0;y<dimension_;++y){
 		for(int x=0;x<dimension_;++x){
-			v.push_back(pow(-1, x+y+2)*submatrix(x, y).determinant());
+			v.push_back(pow(-1, x+y+2)*submatrix(x, y).determinant() / det);
 		}
 	}
 	return matrix(v, dimension_);
@@ -106,6 +107,37 @@ vec matrix::head_mul(const vec& a)
 	return ret;
 }
 
+matrix matrix::cholesky() const
+{
+	double det = determinant();
+	vec ret;
+	for(int y=0;y<dimension_;++y){
+		for(int x=0;x<dimension_;++x){
+			ret.push_back(0);
+		}
+	}
+
+	assert(det > 0);
+	for(int y=0;y<dimension_;++y){
+		for(int x=0;x<=y;++x){
+			if(x==y){
+				double sum = 0;
+				for(int k=0;k<x;++k){
+					sum = ret[y*dimension_+k] * ret[y*dimension_+k];
+				}
+				ret[y*dimension_+x] = sqrt(m_[y*dimension_+x] - sum);
+			}else{
+				double sum = 0;
+				for(int k=0;k<x;++k){
+					sum += ret[y*dimension_+k] * ret[x*dimension_+k];
+				}
+				ret[y*dimension_+x] = (m_[y*dimension_+x] - sum) / ret[x*dimension_+x];
+			}
+		}
+	}
+	return matrix(ret, dimension_);
+}
+
 std::ostream& operator<< (std::ostream& o, const matrix& m)
 {
 	o << "[" << endl;
@@ -133,8 +165,9 @@ gaussian::gaussian(const vec& mu, const matrix& sigma)
 double gaussian::get_y(vec p)
 {
 	assert(p.size() == mu_.size());
-
-	double a = 1.0 / (get_2pi_root(p.size()) * sqrt(sigma_.determinant()));
+	double det = sigma_.determinant();
+	assert(det > 0);
+	double a = 1.0 / (get_2pi_root(p.size()) * sqrt(det));
 	//cout << "a:" << a << endl;
 	//cout << "2pi_root:" << get_2pi_root(x.size()) << endl;
 	//cout << "sigma_determinant:" << sigma_.determinant() << endl;
