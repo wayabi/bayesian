@@ -1,7 +1,9 @@
-#include "gaussian.h"
 #include <sstream>
 #include <iostream>
 #include <random>
+
+#include "gaussian.h"
+#include "bayesian.h"
 
 using namespace std;
 

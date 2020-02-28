@@ -13,9 +13,9 @@ public:
 	std::vector<double> m_;
 	int dimension_;
 public:
-	double determinant();
-	matrix submatrix(int x, int y);
-	matrix inv();
+	double determinant() const;
+	matrix submatrix(int x, int y) const;
+	matrix inv() const;
 	vec head_mul(const vec& a);
 	friend std::ostream& operator<<(std::ostream& o, const matrix& m);
 
@@ -30,7 +30,7 @@ public:
 	double get_y(vec p);
 	vec get_random_x();
 	void calc_variance_matrix(int dimension, std::vector<vec> data);
-	double calc_percentile(const vec& p);
+	double calc_percentile(const vec& p) const;
 
 	friend std::ostream& operator<<(std::ostream& o, const gaussian& m);
 

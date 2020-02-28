@@ -20,7 +20,7 @@ matrix::matrix(const std::vector<double>& m, int dimension)
 	dimension_ = dimension;
 }
 
-double matrix::determinant()
+double matrix::determinant() const
 {
 	if(dimension_ <= 0) return 0;
 	if(dimension_ == 1) return m_[0];
@@ -44,7 +44,7 @@ double matrix::determinant()
 	return sum;
 }
 
-matrix matrix::submatrix(int x, int y)
+matrix matrix::submatrix(int x, int y) const
 {
 	vec v;
 	for(int yy = 0;yy<dimension_;++yy){
@@ -57,7 +57,7 @@ matrix matrix::submatrix(int x, int y)
 	return matrix(v, dimension_-1);
 }
 
-matrix matrix::inv()
+matrix matrix::inv() const
 {
 	vec v;
 	double det = determinant();
@@ -219,7 +219,7 @@ std::ostream& operator<<(std::ostream& o, const gaussian& m)
 	return o;
 }
 
-double gaussian::calc_percentile(const vec& p)
+double gaussian::calc_percentile(const vec& p) const
 {
 	vec sub = matrix::subtract(p, mu_);
 	double x = -0.5 * matrix::dot(sigma_.inv().head_mul(sub), sub);
