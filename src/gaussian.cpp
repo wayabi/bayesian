@@ -47,11 +47,11 @@ double matrix::determinant()
 matrix matrix::submatrix(int x, int y)
 {
 	vec v;
-	for(int xx = 0;xx<dimension_;++xx){
-		if(xx == x) continue;
-		for(int yy = 0;yy<dimension_;++yy){
-			if(yy == y) continue;
-			v.push_back(m_[xx*dimension_+yy]);
+	for(int yy = 0;yy<dimension_;++yy){
+		if(yy == y) continue;
+		for(int xx = 0;xx<dimension_;++xx){
+			if(xx == x) continue;
+			v.push_back(m_[yy*dimension_+xx]);
 		}
 	}
 	return matrix(v, dimension_-1);
@@ -61,8 +61,8 @@ matrix matrix::inv()
 {
 	vec v;
 	double det = determinant();
-	for(int x=0;x<dimension_;++x){
-		for(int y=0;y<dimension_;++y){
+	for(int y=0;y<dimension_;++y){
+		for(int x=0;x<dimension_;++x){
 			v.push_back(pow(-1, x+y+2)*submatrix(x, y).determinant());
 		}
 	}
@@ -131,11 +131,11 @@ double gaussian::get_y(vec x)
 	assert(x.size() == mu_.size());
 
 	double a = 1.0 / (get_2pi_root(x.size()) * sqrt(sigma_.determinant()));
-	cout << "a:" << a << endl;
-	cout << "2pi_root:" << get_2pi_root(x.size()) << endl;
-	cout << "sigma_determinant:" << sigma_.determinant() << endl;
+	//cout << "a:" << a << endl;
+	//cout << "2pi_root:" << get_2pi_root(x.size()) << endl;
+	//cout << "sigma_determinant:" << sigma_.determinant() << endl;
 	matrix sigma_inv = sigma_.inv();
-	cout << sigma_inv << endl;
+	//cout << sigma_inv << endl;
 	vec sub = matrix::subtract(x, mu_);
 	double y = a * exp(-0.5 * matrix::dot(sigma_inv.head_mul(sub), sub));
 	return y;
