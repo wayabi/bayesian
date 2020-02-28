@@ -25,9 +25,14 @@ public:
 
 struct gaussian {
 public:
+	gaussian();
 	gaussian(const vec& mu, const matrix& sigma);
-	double get_y(vec x);
+	double get_y(vec p);
 	vec get_random_x();
+	void calc_variance_matrix(int dimension, std::vector<vec> data);
+	double calc_percentile(const vec& p);
+
+	friend std::ostream& operator<<(std::ostream& o, const gaussian& m);
 
 public:
 	vec mu_;
@@ -36,6 +41,7 @@ public:
 private:
 	static std::vector<double> _2PiRoot;
 	static double get_2pi_root(int dimension);
+	static double _Percentile[];
 };
 
 #endif

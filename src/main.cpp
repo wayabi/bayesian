@@ -28,5 +28,19 @@ int main(int argc, char** argv){
 		double yy = g.get_y(pp);
 		cout << "yy:" << yy << endl;
 	}
+	//////
+	vector<vec> data;
+	int dimension = 3;
+	for(int i=0;i<100;++i){
+		vec pp{1+r(mt), 2+r(mt)*3, 3+r(mt)};
+		data.push_back(pp);
+	}
+	g.calc_variance_matrix(3, data);
+	cout <<  "g:" << g << endl;
+	for(int i=0;i<100;++i){
+		vec pp{1+r(mt)*2, 2+r(mt)*3*2, 3+r(mt)*2};
+		cout << "percentile:" << g.calc_percentile(pp) << " (" << pp[0] << ", " << pp[1] << ", " << pp[2] << ")" << endl;
+	}
+
 	return 0;
 }
