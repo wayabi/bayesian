@@ -22,6 +22,8 @@ public:
 	matrix cholesky() const;
 
 	friend std::ostream& operator<<(std::ostream& o, const matrix& m);
+	friend matrix operator+(const matrix& a, const matrix& b);
+	friend matrix operator-(const matrix& a, const matrix& b);
 
 	static vec subtract(const vec& a, const vec& b);
 	static double dot(const vec& a, const vec& b);
@@ -31,12 +33,13 @@ struct gaussian {
 public:
 	gaussian();
 	gaussian(const vec& mu, const matrix& sigma);
-	double get_y(vec p);
+	double get_y(const vec& p);
 	vec get_random_p();
-	void calc_variance_matrix(int dimension, std::vector<vec> data);
 	double calc_percentile(const vec& p) const;
+	double calc_percentile_x(const vec& p) const;
 
 	friend std::ostream& operator<<(std::ostream& o, const gaussian& m);
+	static gaussian calc_variance_matrix(int dimension, const vec* data, int num_data);
 
 public:
 	vec mu_;
