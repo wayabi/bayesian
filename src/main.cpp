@@ -42,10 +42,14 @@ int main(int argc, char** argv){
 	cout <<  "g:" << g << endl;
 	for(int i=0;i<100;++i){
 		vec pp{1+r(mt), 2+r(mt)*3, 3+r(mt)};
-		cout << "percentile:" << g.calc_percentile(pp) << " (" << pp[0] << ", " << pp[1] << ", " << pp[2] << ")" << endl;
+		//cout << "percentile:" << g.calc_percentile(pp) << " (" << pp[0] << ", " << pp[1] << ", " << pp[2] << ")" << endl;
 	}
 
 	cout << "cholesky:" << g.sigma_.cholesky() << endl;
 
+	for(int i=0;i<100;++i){
+		vec p = g.get_random_p();
+		cout << p[0] << "," << p[1] << "," << p[2] << endl;
+	}
 	return 0;
 }

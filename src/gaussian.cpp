@@ -3,11 +3,14 @@
 #include <math.h>
 #include <stdlib.h>
 #include <iostream>
+#include <random>
 
 using namespace std;
 
 std::vector<double> gaussian::_2PiRoot;
-
+std::random_device gaussian::_RandomDevice;
+std::mt19937 gaussian::_RandomGen{_RandomDevice()};
+std::normal_distribution<> gaussian::_NormalDistribution{0, 1};
 matrix::matrix()
 {
 	dimension_ = 0;
@@ -107,6 +110,20 @@ vec matrix::head_mul(const vec& a)
 	return ret;
 }
 
+vec matrix::tail_mul(const vec& a)
+{
+	assert(a.size() == dimension_);
+	vec ret;
+	for(int y=0;y<dimension_;++y){
+		double sum = 0;
+		for(int x=0;x<dimension_;++x){
+			sum += a[x] * m_[y*dimension_+x];
+		}
+		ret.push_back(sum);
+	}
+	return ret;
+}
+
 matrix matrix::cholesky() const
 {
 	double det = determinant();
@@ -177,9 +194,20 @@ double gaussian::get_y(vec p)
 	return y;
 }
 
-vec gaussian::get_random_x()
+vec gaussian::get_random_p()
 {
-	return vec();
+	matrix chol = sigma_.cholesky();
+	int num = mu_.size();
+	vec p;
+	for(int i=0;i<num;++i){
+		double d = _NormalDistribution(_RandomGen);
+		p.push_back(d);
+	}
+	p = chol.tail_mul(p);
+	for(int i=0;i<num;++i){
+		p[i] = p[i] + mu_[i];
+	}
+	return p;
 }
 
 double gaussian::get_2pi_root(int dimension)
