@@ -62,7 +62,7 @@ gaussian bayesian::posterior_outlier1(const gaussian& g, const vec* data, int nu
 	for(int i=0;i<num_data;++i){
 		vec v = *(data+i);
 		double perx = g.calc_percentile_x(v);
-		if(perx < 4){
+		if(perx < 5){
 			//cout << "per:" << per << endl;
 			data_.push_back(v);
 			if(data_.size() > size_data_queue_){

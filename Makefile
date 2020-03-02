@@ -5,7 +5,7 @@ ifeq "$(shell getconf LONG_BIT)" "64"
 else
   LDFLAGS = -L/usr/local/lib 
 endif
-LIBS      = -lpthread
+LIBS      = -lpthread -lopencv_core -lopencv_aruco -lopencv_highgui -lopencv_imgcodecs -lopencv_videoio
 INCLUDE   = -I./include
 TARGET    = ./a.out
 SRCDIR    = ./src
