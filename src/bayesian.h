@@ -9,7 +9,7 @@
 class bayesian {
 public:
 	static gaussian posterior_simple0(const gaussian& g, const vec& p, double effectiveness);
-	static gaussian posterior_outlier0(const gaussian& g, const vec& p, double effectiveness, double outlier_percentile);
+	static gaussian posterior_outlier0(const gaussian& g, const vec& p, double effectiveness, double outlier_sigma);
 
 public:
 	bayesian(int size_data_queue);

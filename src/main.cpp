@@ -80,7 +80,7 @@ void t1(const string& path)
 	g = g.calc_variance_matrix(3, &dd[0], num_unit*10);
 	//cout << "g0:" << g << endl;
 	for(int i=10;i<num_step;++i){
-		g = bayes.posterior_outlier1(g, &dd[i*num_unit], num_unit, 0.45);
+		g = bayes.posterior_outlier1(g, &dd[i*num_unit], num_unit, 5);
 		//cout << "g_next:" << g << endl;
 	}
 	cout << "g_infelenced:" << g << endl;
@@ -104,7 +104,7 @@ void t1(const string& path)
 				(int)bb / divide_lut;
 			if(lut[idx_lut] < 0){
 				double len = g.calc_percentile_x(vec{rr, gg, bb});
-				if(len < 2.5){
+				if(len < 3){
 					lut[idx_lut] = 1;
 				}else{
 					lut[idx_lut] = 0;
