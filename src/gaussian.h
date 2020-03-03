@@ -4,6 +4,7 @@
 #include <vector>
 #include <ostream>
 #include <random>
+#include <memory>
 
 typedef std::vector<double> vec;
 
@@ -16,7 +17,7 @@ public:
 public:
 	double determinant() const;
 	matrix submatrix(int x, int y) const;
-	matrix inv() const;
+	std::shared_ptr<matrix> inv() const;
 	vec head_mul(const vec& a);
 	vec tail_mul(const vec& a);
 	matrix cholesky() const;

@@ -74,7 +74,7 @@ gaussian bayesian::posterior_outlier1(const gaussian& g, const vec* data, int nu
 	for(auto ite=data_.begin();ite!=data_.end();++ite){
 		dd.push_back(*ite);
 	}
-	cout << "size dd:" << dd.size() << endl;
+	//cout << "bayesian::dd size:" << dd.size() << endl;
 	if(dd.size() < 3) return g;
 	return gaussian::calc_variance_matrix((data+0)->size(), &dd[0], dd.size());
 	
